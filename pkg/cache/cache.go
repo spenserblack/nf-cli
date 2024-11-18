@@ -5,26 +5,41 @@ import (
 	"io"
 	"math"
 	"os"
-	"path"
+	"path/filepath"
 	"time"
 )
 
-// GetPath gets the path to the cache.
-func GetPath() (string, error) {
+// Cache handles interacting with the cache.
+type Cache struct {
+	// Path is the path to the cache.
+	Path string
+}
+
+// Default returns the default cache.
+func Default() (Cache, error) {
+	path, err := defaultPath()
+	// HACK As long as the struct is simple, it should be safe to use the zero
+	//		value of the path.
+	cache := Cache{
+		Path: path,
+	}
+	return cache, err
+}
+
+// DefaultPath gets the path to the cache.
+func defaultPath() (string, error) {
 	dir, err := os.UserCacheDir()
 	if err != nil {
 		return "", err
 	}
-	return path.Join(dir, "nerd-fonts-cli", "nerdfonts.json"), nil
+	return filepath.Join(dir, "nerd-fonts-cli", "nerdfonts.json"), nil
 }
 
 // Write saves a reader to the cache.
-func Write(r io.Reader) error {
-	path, err := GetPath()
-	if err != nil {
-		return err
-	}
-	if err := os.MkdirAll(path, os.ModeDir); err != nil {
+func (cache Cache) Write(r io.Reader) error {
+	path := cache.Path
+	dir := filepath.Dir(path)
+	if err := os.MkdirAll(dir, os.ModeDir); err != nil {
 		return err
 	}
 	f, err := os.Create(path)
@@ -39,21 +54,15 @@ func Write(r io.Reader) error {
 }
 
 // Open opens the cache file.
-func Open() (*os.File, error) {
-	path, err := GetPath()
-	if err != nil {
-		return nil, err
-	}
+func (cache Cache) Open() (*os.File, error) {
+	path := cache.Path
 	return os.Open(path)
 }
 
 // Age gets the age of the cache. Returns max int value if the cache could not be read.
-func Age() (time.Duration, error) {
+func (cache Cache) Age() (time.Duration, error) {
 	const max = time.Duration(math.MaxInt64)
-	path, err := GetPath()
-	if err != nil {
-		return max, err
-	}
+	path := cache.Path
 	fileinfo, err := os.Stat(path)
 	if err != nil {
 		return max, err
