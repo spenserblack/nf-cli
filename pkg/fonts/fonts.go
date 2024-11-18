@@ -14,22 +14,23 @@ type Font struct {
 	PatchedName string `json:"patchedName"`
 	// The original font's name.
 	UnpatchedName string `json:"unpatchedName"`
-	Version string `json:"version"`
-	Description string `json:"description"`
-	License string `json:"licenseId"`
+	Version       string `json:"version"`
+	Description   string `json:"description"`
+	License       string `json:"licenseId"`
 	// The name of the folder in release assets.
-	Folder string `json:"folderName"`
-	LinkPreviewFont string `json:"linkPreviewFont"`
+	Folder          string `json:"folderName"`
+	// Link to the preview font. Usually a string, sometimes a boolean.
+	LinkPreviewFont interface{} `json:"linkPreviewFont"`
 }
 
 // Unmarshal loads Nerd Font data from JSON bytes.
 func Unmarshal(data []byte) ([]Font, error) {
-	fonts := struct{
-		fonts []Font `json:"fonts"`
+	fonts := struct {
+		Fonts []Font `json:"fonts"`
 	}{}
 
 	err := json.Unmarshal(data, &fonts)
-	return fonts.fonts, err
+	return fonts.Fonts, err
 }
 
 // UnmarshalCache loads Nerd Font data from the cached data.
