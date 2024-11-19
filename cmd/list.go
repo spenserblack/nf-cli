@@ -4,8 +4,8 @@ import (
 	"os"
 	"github.com/spf13/cobra"
 	"github.com/jedib0t/go-pretty/v6/table"
-	"nerd-fonts-cli/pkg/fonts"
-	"nerd-fonts-cli/internal/cache"
+	"github.com/spenserblack/nf-cli/pkg/fonts"
+	"github.com/spenserblack/nf-cli/internal/cache"
 )
 
 func init() {

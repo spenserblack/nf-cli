@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"nerd-fonts-cli/pkg/cache"
+	"github.com/spenserblack/nf-cli/pkg/cache"
 )
 
 // Font represents a Nerd Font's data.

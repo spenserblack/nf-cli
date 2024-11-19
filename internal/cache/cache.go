@@ -2,8 +2,8 @@ package cache
 
 import (
 	"time"
-	"nerd-fonts-cli/pkg/cache"
-	"nerd-fonts-cli/pkg/data"
+	"github.com/spenserblack/nf-cli/pkg/cache"
+	"github.com/spenserblack/nf-cli/pkg/data"
 )
 
 // Refresh refreshes the cache.

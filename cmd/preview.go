@@ -7,9 +7,9 @@ import (
 	"os/exec"
 	"strings"
 	"github.com/spf13/cobra"
-	"nerd-fonts-cli/internal/cache"
-	"nerd-fonts-cli/internal/prompts"
-	"nerd-fonts-cli/pkg/fonts"
+	"github.com/spenserblack/nf-cli/internal/cache"
+	"github.com/spenserblack/nf-cli/internal/prompts"
+	"github.com/spenserblack/nf-cli/pkg/fonts"
 	"github.com/MakeNowJust/heredoc"
 )
 

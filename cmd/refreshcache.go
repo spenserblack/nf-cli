@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"nerd-fonts-cli/internal/cache"
+	"github.com/spenserblack/nf-cli/internal/cache"
 )
 
 func init() {

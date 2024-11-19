@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 	"github.com/spf13/cobra"
-	"nerd-fonts-cli/pkg/cache"
+	"github.com/spenserblack/nf-cli/pkg/cache"
 )
 
 var rootCmd = &cobra.Command{

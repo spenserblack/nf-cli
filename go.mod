@@ -1,4 +1,4 @@
-module nerd-fonts-cli
+module github.com/spenserblack/nf-cli
 
 go 1.23.3
 

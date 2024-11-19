@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	tea "github.com/charmbracelet/bubbletea"
-	"nerd-fonts-cli/pkg/fonts"
+	"github.com/spenserblack/nf-cli/pkg/fonts"
 )
 
 // ErrNoFontSelected is returned when a font was not selected

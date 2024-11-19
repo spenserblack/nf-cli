@@ -32,7 +32,7 @@ func defaultPath() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(dir, "nerd-fonts-cli", "nerdfonts.json"), nil
+	return filepath.Join(dir, "nf-cli", "nerdfonts.json"), nil
 }
 
 // Write saves a reader to the cache.

@@ -1,6 +1,6 @@
 package main
 
-import "nerd-fonts-cli/cmd"
+import "github.com/spenserblack/nf-cli/cmd"
 
 func main() {
 	cmd.Execute()
