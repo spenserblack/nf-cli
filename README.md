@@ -1,4 +1,4 @@
-# `nerdfonts`
+# `nf-cli`
 
 Unofficial CLI for [Nerd Fonts][nerd-fonts].
 
