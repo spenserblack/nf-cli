@@ -61,9 +61,24 @@ func (m fpmultimodel) View() string {
 		return ""
 	}
 
-	view := "select the font(s) you want to install (use arrow keys or j/k to navigate, Space to select, Enter to confirm):\n\n"
+	view := "select the font(s) you want to install (use arrow keys or j/k to navigate, Space to select):\n\n"
 
-	for i, font := range m.fonts {
+	// NOTE We don't show all fonts because the list could be very long.
+	lowerBound := m.cursor - 5
+	upperBound := m.cursor + 5
+	// NOTE Theoretically there can be some awkward behavior if the list is very small,
+	//		but that shouldn't happen in practice.
+	if lowerBound < 0 {
+		upperBound += -lowerBound
+		lowerBound = 0
+	}
+	if upperBound > len(m.fonts) {
+		lowerBound -= upperBound - len(m.fonts)
+		upperBound = len(m.fonts)
+	}
+
+	for i := lowerBound; i < upperBound; i++ {
+		font := m.fonts[i]
 		cursor := " "
 		if m.cursor == i {
 			cursor = ">"
