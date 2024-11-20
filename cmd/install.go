@@ -1,13 +1,17 @@
 package cmd
 
 import (
+	"archive/zip"
 	"errors"
 	"fmt"
+	"io"
 	"os"
+	"path/filepath"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spenserblack/nf-cli/internal/cache"
 	"github.com/spenserblack/nf-cli/internal/prompts"
+	"github.com/spenserblack/nf-cli/pkg/dirs"
 	"github.com/spenserblack/nf-cli/pkg/fonts"
 	"github.com/spf13/cobra"
 )
@@ -24,6 +28,16 @@ var installCmd = &cobra.Command{
 		directory.
 	`),
 	RunE: func(cmd *cobra.Command, args []string) error {
+		// NOTE Ensure that the font directory exists
+		destDir, err := dirs.UserFontDir()
+		if err != nil {
+			return err
+		}
+		if err := os.MkdirAll(destDir, os.ModeDir|os.ModePerm); err != nil {
+			return err
+		}
+
+
 		if err := cache.RefreshIfOld(Cache, MaxCacheAge); err != nil {
 			return err
 		}
@@ -37,7 +51,7 @@ var installCmd = &cobra.Command{
 			return err
 		}
 
-		installDir, paths, err := fonts.FetchTmp(selected)
+		srcDir, paths, err := fonts.FetchTmp(selected)
 		if err != nil {
 			var bulkFetchErr *fonts.BulkFetchErr
 			if errors.As(err, bulkFetchErr) {
@@ -48,11 +62,51 @@ var installCmd = &cobra.Command{
 				return err
 			}
 		}
-		fmt.Fprintf(os.Stdout, "Downloaded fonts to %s\n", installDir)
+		defer os.RemoveAll(srcDir)
+		fmt.Fprintf(os.Stdout, "Downloaded fonts to %s\n", srcDir)
 
-		// TODO Clean up install dir
-		_ = paths
+		for _, path := range paths {
+			installZip(path, destDir)
+		}
 
 		return nil
 	},
+}
+
+func installZip(src string, dest string) {
+	zf, err := zip.OpenReader(src)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		return
+	}
+	defer zf.Close()
+
+	for _, file := range zf.File {
+		tryInstallFile(file, dest)
+	}
+}
+
+func tryInstallFile(file *zip.File, dest string) {
+	if ext := filepath.Ext(file.Name); !(ext == ".otf" || ext == ".ttf") {
+		return
+	}
+	fmt.Fprintf(os.Stdout, "Installing %s to %s ... ", file.Name, dest)
+	r, err := file.Open()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		return
+	}
+	defer r.Close()
+
+	destFile, err := os.Create(filepath.Join(dest, file.Name))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		return
+	}
+	defer destFile.Close()
+	if _, err := io.Copy(destFile, r); err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		return
+	}
+	fmt.Println("done!")
 }
