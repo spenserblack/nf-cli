@@ -48,6 +48,15 @@ func (m fpmultimodel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			} else {
 				m.selected[m.cursor] = struct{}{}
 			}
+		case "i":
+			for i := range m.fonts {
+				_, ok := m.selected[i]
+				if ok {
+					delete(m.selected, i)
+				} else {
+					m.selected[i] = struct{}{}
+				}
+			}
 		case "enter":
 			m.done = true
 			return m, tea.Quit
@@ -61,7 +70,7 @@ func (m fpmultimodel) View() string {
 		return ""
 	}
 
-	view := "select the font(s) you want to install (use arrow keys or j/k to navigate, Space to select):\n\n"
+	view := "select the font(s) you want to install\nuse arrow keys or j/k to navigate, space to select, i to invert selection\n\n"
 
 	// NOTE We don't show all fonts because the list could be very long.
 	lowerBound := m.cursor - 5
