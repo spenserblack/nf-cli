@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"runtime"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spenserblack/nf-cli/internal/cache"
@@ -67,6 +68,11 @@ var installCmd = &cobra.Command{
 
 		for _, path := range paths {
 			installZip(path, destDir)
+		}
+
+		switch runtime.GOOS {
+		case "linux":
+			fmt.Fprintln(os.Stdout, "You may need to run `fc-cache -f` to complete installation")
 		}
 
 		return nil
