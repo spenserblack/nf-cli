@@ -1,20 +1,17 @@
 package prompts
 
 import (
-	"errors"
 	"fmt"
+
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spenserblack/nf-cli/pkg/fonts"
 )
 
-// ErrNoFontSelected is returned when a font was not selected
-var ErrNoFontSelected = errors.New("no font selected")
-
 // FPModel is the model for the font picker.
 type fpmodel struct {
-	fonts []fonts.Font
-	cursor int
-	quit bool
+	fonts    []fonts.Font
+	cursor   int
+	quit     bool
 	selected bool
 }
 
@@ -36,7 +33,7 @@ func (m fpmodel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.cursor = len(m.fonts) - 1
 			}
 		case "down", "j":
-			if m.cursor < len(m.fonts) - 1 {
+			if m.cursor < len(m.fonts)-1 {
 				m.cursor++
 			} else {
 				m.cursor = 0
@@ -73,11 +70,12 @@ func (m fpmodel) View() string {
 	return view
 }
 
+// PromptForFont prompts the user to select a font from the given choices.
 func PromptForFont(choices []fonts.Font) (font fonts.Font, err error) {
 	m := fpmodel{
-		fonts: choices,
-		cursor: -1,
-		quit: false,
+		fonts:    choices,
+		cursor:   -1,
+		quit:     false,
 		selected: false,
 	}
 	p := tea.NewProgram(m)
