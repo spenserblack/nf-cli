@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"os"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spenserblack/nf-cli/internal/cache"
@@ -35,7 +37,21 @@ var installCmd = &cobra.Command{
 			return err
 		}
 
-		fmt.Println(selected)
+		installDir, paths, err := fonts.FetchTmp(selected)
+		if err != nil {
+			var bulkFetchErr *fonts.BulkFetchErr
+			if errors.As(err, bulkFetchErr) {
+				// NOTE Non-fatal error, some fonts might still be successfully
+				//		fetched.
+				fmt.Fprintf(os.Stderr, err.Error())
+			} else {
+				return err
+			}
+		}
+		fmt.Fprintf(os.Stdout, "Downloaded fonts to %s\n", installDir)
+
+		// TODO Clean up install dir
+		_ = paths
 
 		return nil
 	},
