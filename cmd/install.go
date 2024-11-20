@@ -57,7 +57,7 @@ var installCmd = &cobra.Command{
 			if errors.As(err, bulkFetchErr) {
 				// NOTE Non-fatal error, some fonts might still be successfully
 				//		fetched.
-				fmt.Fprintf(os.Stderr, err.Error())
+				fmt.Fprintf(os.Stderr, "%v\n", err.Error())
 			} else {
 				return err
 			}

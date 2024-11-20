@@ -20,8 +20,7 @@ func (m fpmodel) Init() tea.Cmd {
 }
 
 func (m fpmodel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	switch msg := msg.(type) {
-	case tea.KeyMsg:
+	if msg, ok := msg.(tea.KeyMsg); ok {
 		switch msg.String() {
 		case "ctrl+c", "q":
 			m.quit = true

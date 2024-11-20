@@ -55,17 +55,17 @@ func (font Font) fetch(target string) (string, error) {
 
 	resp, err := http.Get(endpoint)
 	if err != nil {
-		return "", err
+		return "", fontFetchFailureErr{name: filename, reason: err}
 	}
 	defer resp.Body.Close()
 
 	f, err := os.Create(dest)
 	if err != nil {
-		return "", err
+		return "", fontFetchFailureErr{name: filename, reason: err}
 	}
 	defer f.Close()
 	if _, err := io.Copy(f, resp.Body); err != nil {
-		return "", err
+		return "", fontFetchFailureErr{name: filename, reason: err}
 	}
 
 	return dest, nil
