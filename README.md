@@ -9,4 +9,12 @@ utilities that it relies on can change without warning, and this tool's developm
 may not be in sync with official repository development. If there is an unexpected
 breakage, raise an issue or submit a PR.
 
+## Installation
+
+### `go install`
+
+```shell
+go install github.com/spenserblack/nf-cli@latest
+```
+
 [nerd-fonts]: https://www.nerdfonts.com/
