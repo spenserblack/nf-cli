@@ -38,7 +38,6 @@ var installCmd = &cobra.Command{
 			return err
 		}
 
-
 		if err := cache.RefreshIfOld(Cache, MaxCacheAge); err != nil {
 			return err
 		}
