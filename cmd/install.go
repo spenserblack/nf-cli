@@ -15,7 +15,7 @@ func init() {
 }
 
 var installCmd = &cobra.Command{
-	Use: "install",
+	Use:   "install",
 	Short: "Install fonts",
 	Long: heredoc.Doc(`
 		Install fonts. This command will install the fonts in the user's font

@@ -18,7 +18,7 @@ type Font struct {
 	Description   string `json:"description"`
 	License       string `json:"licenseId"`
 	// The name of the folder in release assets.
-	Folder          string `json:"folderName"`
+	Folder string `json:"folderName"`
 	// Link to the preview font. Usually a string, sometimes a boolean.
 	LinkPreviewFont interface{} `json:"linkPreviewFont"`
 }

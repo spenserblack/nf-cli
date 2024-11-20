@@ -39,7 +39,7 @@ func defaultPath() (string, error) {
 func (cache Cache) Write(r io.Reader) error {
 	path := cache.Path
 	dir := filepath.Dir(path)
-	if err := os.MkdirAll(dir, os.ModeDir | os.ModePerm); err != nil {
+	if err := os.MkdirAll(dir, os.ModeDir|os.ModePerm); err != nil {
 		return err
 	}
 	f, err := os.Create(path)

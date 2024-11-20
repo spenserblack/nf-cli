@@ -1,9 +1,9 @@
 package cache
 
 import (
-	"time"
 	"github.com/spenserblack/nf-cli/pkg/cache"
 	"github.com/spenserblack/nf-cli/pkg/data"
+	"time"
 )
 
 // Refresh refreshes the cache.

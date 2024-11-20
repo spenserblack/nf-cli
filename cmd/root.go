@@ -3,14 +3,14 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	"github.com/spenserblack/nf-cli/pkg/cache"
+	"github.com/spf13/cobra"
 	"os"
 	"time"
-	"github.com/spf13/cobra"
-	"github.com/spenserblack/nf-cli/pkg/cache"
 )
 
 var rootCmd = &cobra.Command{
-	Use: "nf-cli",
+	Use:   "nf-cli",
 	Short: "An unofficial CLI tool to manage Nerd Fonts",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return errors.New("Use one of the available subcommands")

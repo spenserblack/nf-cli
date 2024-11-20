@@ -12,7 +12,7 @@ type fpmultimodel struct {
 	fonts  []fonts.Font
 	cursor int
 	done   bool
-	quit  bool
+	quit   bool
 	// selected is a set of selected indices.
 	selected map[int]struct{}
 }
@@ -107,8 +107,8 @@ func (m fpmultimodel) View() string {
 func MultiPromptForFonts(choices []fonts.Font) (selected []fonts.Font, err error) {
 	m := fpmultimodel{
 		fonts:    choices,
-		cursor:  0,
-		done:    false,
+		cursor:   0,
+		done:     false,
 		selected: make(map[int]struct{}, len(choices)),
 	}
 	p := tea.NewProgram(m)

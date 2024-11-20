@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/spf13/cobra"
 	"github.com/spenserblack/nf-cli/internal/cache"
+	"github.com/spf13/cobra"
 )
 
 func init() {
@@ -12,7 +12,7 @@ func init() {
 }
 
 var refreshCacheCmd = &cobra.Command{
-	Use: "refresh-cache",
+	Use:   "refresh-cache",
 	Short: "Force the cached Nerd Font data to be refreshed",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		err := cache.Refresh(Cache)

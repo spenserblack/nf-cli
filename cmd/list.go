@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"os"
-	"github.com/spf13/cobra"
 	"github.com/jedib0t/go-pretty/v6/table"
-	"github.com/spenserblack/nf-cli/pkg/fonts"
 	"github.com/spenserblack/nf-cli/internal/cache"
+	"github.com/spenserblack/nf-cli/pkg/fonts"
+	"github.com/spf13/cobra"
+	"os"
 )
 
 func init() {
@@ -13,7 +13,7 @@ func init() {
 }
 
 var listCmd = &cobra.Command{
-	Use: "list",
+	Use:   "list",
 	Short: "Display a list of the available Nerd Fonts in the terminal",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		err := cache.RefreshIfOld(Cache, MaxCacheAge)

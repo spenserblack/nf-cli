@@ -2,16 +2,16 @@
 package dirs
 
 import (
-	"runtime"
-	"os"
 	"errors"
-	"path/filepath"
 	"fmt"
+	"os"
+	"path/filepath"
+	"runtime"
 )
 
 // UserFontDir returns the user font directory.
 func UserFontDir() (string, error) {
-	switch  os := runtime.GOOS; os {
+	switch os := runtime.GOOS; os {
 	case "linux":
 		return linuxUserFontDir()
 	case "windows":

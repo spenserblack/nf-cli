@@ -3,14 +3,14 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	"os"
-	"os/exec"
-	"strings"
-	"github.com/spf13/cobra"
+	"github.com/MakeNowJust/heredoc"
 	"github.com/spenserblack/nf-cli/internal/cache"
 	"github.com/spenserblack/nf-cli/internal/prompts"
 	"github.com/spenserblack/nf-cli/pkg/fonts"
-	"github.com/MakeNowJust/heredoc"
+	"github.com/spf13/cobra"
+	"os"
+	"os/exec"
+	"strings"
 )
 
 var PreviewFontName string
@@ -21,7 +21,7 @@ func init() {
 }
 
 var previewCmd = &cobra.Command{
-	Use: "preview",
+	Use:   "preview",
 	Short: "Preview the font in the browser",
 	Long: heredoc.Doc(`
 		Preview the font in the browser. Note that not all fonts have available
@@ -50,10 +50,10 @@ var previewCmd = &cobra.Command{
 		}
 
 		if PreviewFontName != "" {
-			names := make([]string, 0, len(previewable) * 2)
+			names := make([]string, 0, len(previewable)*2)
 			found := false
 			for _, font := range previewable {
-				if  PreviewFontName == font.PatchedName || PreviewFontName == font.UnpatchedName {
+				if PreviewFontName == font.PatchedName || PreviewFontName == font.UnpatchedName {
 					selected = font
 					found = true
 					break
