@@ -24,7 +24,7 @@ func UserFontDir() (string, error) {
 
 // LinuxUserFontDir returns the user font directory on Linux.
 func linuxUserFontDir() (string, error) {
-	dir, err := os.UserConfigDir()
+	dir, err := os.UserHomeDir()
 	if err != nil {
 		return "", err
 	}
