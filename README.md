@@ -9,6 +9,11 @@ utilities that it relies on can change without warning, and this tool's developm
 may not be in sync with official repository development. If there is an unexpected
 breakage, raise an issue or submit a PR.
 
+## Common Commands
+
+- `nf-cli install`: select and install one or more fonts
+- `nf-cli preview`: select a font and open a preview in your browser
+
 ## Installation
 
 ### `go install`
